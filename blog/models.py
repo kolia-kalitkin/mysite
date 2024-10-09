@@ -3,6 +3,11 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
+
 class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = 'DF', 'Draft'
@@ -23,10 +28,13 @@ class Post(models.Model):
                               choices=Status.choices,
                               default=Status.DRAFT)     # добавим в модель поле статуса, которое позволит управлять статусом постов блога.
 
+    objects = models.Manager() # менеджер, применяемый по умолчанию
+    published = PublishedManager() # конкретно-прикладной менеджер
+
     class Meta:
-        ordering = ['-publish']     # сортировать результаты по полю publish
+        ordering = ['-publish']
         indexes = [
-            models.Index(fields=['-publish']),      # опция позволяет определять в модели индексы базы данных, которые могут содержать одно или несколько полей в возрастающем либо убывающем порядке, или функциональные выражения и функции базы данных.
+            models.Index(fields=['-publish']),
         ]
 
     def __str__(self):
