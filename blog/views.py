@@ -10,6 +10,7 @@ from django.db.models import Count
 from django.contrib.postgres.search import SearchVector
 from .forms import EmailPostForm, CommentForm, SearchForm
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
 
 class PostListView(ListView):
     """
@@ -133,16 +134,12 @@ def post_search(request):
 
     if 'query' in request.GET:
         form = SearchForm(request.GET)
+
         if form.is_valid():
             query = form.cleaned_data['query']
-            # Для того чтобы использовать другую конфигурацию поиска, в SearchVector и SearchQuery передается атрибут config. 
-            # Такой подход позволяет использовать разные языковые парсеры и словари.
-            search_vector = SearchVector('title', 'body', config='russian')     # выделяются основы слов и удаляются стоп-слова на русском языке 
-            search_query = SearchQuery(query, config='russian')
             results = Post.published.annotate(
-                search=search_vector,
-                rank=SearchRank(search_vector, search_query)
-            ).filter(search=search_query).order_by('-rank')
+                similarity=TrigramSimilarity('title', query),
+            ).filter(similarity__gt=0.1).order_by('-similarity')
 
     return render(request,
                   'blog/post/search.html',
