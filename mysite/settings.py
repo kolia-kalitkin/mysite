@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -144,3 +145,9 @@ EMAIL_HOST_PASSWORD = 'hldi qcma eblo lepo '
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+
+# переадресацией входа выхода
+LOGIN_REDIRECT_URL = '/'    # чтобы пользователи перенаправлялись на главную страницу сайта
+LOGOUT_REDIRECT_URL = "/"     # переадресацией входа,
