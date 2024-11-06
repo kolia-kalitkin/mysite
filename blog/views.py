@@ -11,6 +11,8 @@ from django.contrib.postgres.search import SearchVector
 from .forms import EmailPostForm, CommentForm, SearchForm
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import TrigramSimilarity
+from django.contrib.postgres.search import SearchVector
+from .forms import EmailPostForm, CommentForm, SearchForm
 
 class PostListView(ListView):
     """
@@ -21,6 +23,8 @@ class PostListView(ListView):
     paginate_by = 3
     template_name = 'blog/post/list.html'
     
+
+from taggit.models import Tag
 
 def post_list(request, tag_slug=None):
     post_list = Post.published.all()

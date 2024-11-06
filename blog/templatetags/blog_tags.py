@@ -5,9 +5,10 @@ from django.utils.safestring import mark_safe
 import markdown
 
 
+
 register = template.Library()
 
-# шаблонный тег, который возвращает число опубликованных в блоге постов.
+
 @register.simple_tag
 def total_posts():
     return Post.published.count()
@@ -29,4 +30,3 @@ def get_most_commented_posts(count=5):
 @register.filter(name='markdown')
 def markdown_format(text):
     return mark_safe(markdown.markdown(text))
-
