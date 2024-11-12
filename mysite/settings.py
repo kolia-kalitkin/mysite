@@ -151,4 +151,8 @@ EMAIL_USE_SSL = False
 
 # переадресацией входа выхода
 LOGIN_REDIRECT_URL = '/'    # чтобы пользователи перенаправлялись на главную страницу сайта
-LOGOUT_REDIRECT_URL = "/"     # переадресацией входа,
+
+# LOGOUT_REDIRECT_URL = "/"     # переадресацией входа,
+
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
