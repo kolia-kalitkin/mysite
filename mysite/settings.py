@@ -156,3 +156,5 @@ LOGIN_REDIRECT_URL = '/'    # чтобы пользователи перенап
 
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+LOGIN_URL = '/accounts/login/'

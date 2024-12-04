@@ -5,6 +5,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from .forms import SignUpForm, LoginForm
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def profile(request):
+    return render(request, 'registration/profile.html')     # Декоратор login_required ограничивает доступ для незарегистрированных пользователей.
+    # 
+    # Пользователь, не вошедший в систему, не может получить доступ к странице профиля. Если пользователь попытается это сделать, то с помощью login_required() он будет перенаправлен на settings.LOGIN_URL(который мы добавим в файл настройки проекта), передав текущий абсолютный путь в строке запроса. Пример: /login/?next=/profile/
+
+
 
 
 class SignUpView(generic.CreateView):
