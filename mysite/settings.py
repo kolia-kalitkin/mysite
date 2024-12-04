@@ -158,3 +158,6 @@ LOGIN_REDIRECT_URL = '/'    # чтобы пользователи перенап
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
 LOGIN_URL = '/accounts/login/'
+
+MEDIA_ROOT = BASE_DIR/'media'   # полный путь к каталогу, в котором хранятся загруженные файлы.
+MEDIA_URL = '/media/'   # базовый URL-адрес для обслуживания медиафайлов
