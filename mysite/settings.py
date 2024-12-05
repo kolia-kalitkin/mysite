@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv      # для секретных ключей
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d(5ftfwm67_+#i6g8urw=x-px4aet20exhpvrz^5%27vrq@9#h'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -176,11 +179,14 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# Конфигурации социальной аутентификации для GitHub
-SOCIAL_AUTH_GITHUB_KEY = 'xxx'
-SOCIAL_AUTH_GITHUB_SECRET = 'xxxx'
+# SECURITY WARNING: keep the secret key used in production secret!
+# храните секретный ключ в тайне!
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
+# Конфигурации социальной аутентификации для GitHub
+SOCIAL_AUTH_GITHUB_KEY = str(os.getenv('GITHUB_KEY'))
+SOCIAL_AUTH_GITHUB_SECRET = str(os.getenv('GITHUB_SECRET'))
 
 # Конфигурации социальной аутентификации для Google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'xxx'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xxxx'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
