@@ -1,20 +1,32 @@
 from django.urls import reverse_lazy
 from django.views import generic
-from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
-from .forms import SignUpForm, LoginForm
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm, LoginForm, UpdateUserForm, UpdateProfileForm
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 
 
-@login_required
-def profile(request):
-    return render(request, 'registration/profile.html')     # Декоратор login_required ограничивает доступ для незарегистрированных пользователей.
+@login_required     # Декоратор login_required ограничивает доступ для незарегистрированных пользователей.
     # 
     # Пользователь, не вошедший в систему, не может получить доступ к странице профиля. Если пользователь попытается это сделать, то с помощью login_required() он будет перенаправлен на settings.LOGIN_URL(который мы добавим в файл настройки проекта), передав текущий абсолютный путь в строке запроса. Пример: /login/?next=/profile/
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'registration/profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
 
@@ -63,3 +75,9 @@ class CustomLoginView(LoginView):
 
         # В противном случае сеанс браузера будет таким же как время сеанса cookie "SESSION_COOKIE_AGE", определенное в settings.py
         return super(CustomLoginView, self).form_valid(form)
+    
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'registration/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('users-profile')
