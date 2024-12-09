@@ -1,16 +1,26 @@
-{% extends "blog/base.html" %}
-{% block title %} Log in {% endblock %}
-{% block content %}
-    <h2> Log in </h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<!-- страница авторизации -->
 
-        <p><input type="submit" value="Sign Up"></p>
-        <p>
-            <a href="{% url 'social:begin' 'github' %}">Log In with GitHub</a><br>
-            <a href="{% url 'social:begin' 'google-oauth2' %}">Log In with Google</a>
+{% extends "blog/base.html" %}
+{% block title %} Вход в систему {% endblock %}
+{% block content %}
+    <h2> Вход в систему </h2>
         
+    <div class="mb-1" >
+        <p>
+            <a href="{% url 'signup' %}">Зарегистрироваться</a><br>
+            <a href="{% url 'social:begin' 'github' %}" >Войти с помощью аккаунта GitHub</a><br>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" >Войти с помощью аккаунта Google</a><br> 
         </p>
+    </div>
+        
+    <form method="post" class="form">
+        <div class="col-md-4">{{ form.username }}</div>
+        <div class="col-md-4">{{ form.password }}</div>
+        <div class="col-md-4">Запомнить меня {{ form.remember_me }}</div>
+        <br>
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary btn-lg" value="Войти">
     </form>
+
+   <a href="{% url 'password_reset' %}">Сброс пароля</a>
 {% endblock %}

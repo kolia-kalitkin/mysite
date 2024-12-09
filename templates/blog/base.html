@@ -16,7 +16,7 @@
 <!-- Responsive navbar-- адаптивный блок навигации-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/">My First Blog Django 5</a>
+        <a class="navbar-brand" href="/">Учебный проект - Мой блог, на Django 5</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -28,11 +28,11 @@
                     </a></li>
                     <li class="nav-item">
                         <form action="{% url 'logout' %}" method="post">{% csrf_token %}
-                            <a href="#" class="nav-link" onclick="parentNode.submit();">Log Out</a>
+                            <a href="#" class="nav-link" onclick="parentNode.submit();">Выйти</a>
                         </form>
                     </li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Залогиниться</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -59,29 +59,29 @@
         <!-- Widgets-->
         <div class="col-lg-4">
             <div class="card mb-4">
-                <div class="card-header">This is my blog.</div>
+                <div class="card-header">Это мой блог</div>
                 <div class="card-body">
-                    Total posts {% total_posts %} so far.
+                    На данный момент <b>{% total_posts %}</b> постов
                 </div>
             </div>
             <!-- Search widget  -- поиск по нашему блогу -->
             <div class="card mb-4">
-                <div class="card-header">Search</div>
+                <div class="card-header"><h4>Поиск</h4></div>
                 <div class="card-body">
                     <div class="input-group">
                         <form action="/search/" method="get" class="input-group">
-                            <input type="text" name="query" class="form-control" placeholder="Enter search term..."
+                            <input type="text" name="query" class="form-control" placeholder="Введите поисковой запрос..."
                                    required="" id="id_query">
-                            <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                            <button class="btn btn-primary" id="button-search" type="submit">Искать</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- Latest posts widget-->
+            <!-- Последние сообщения widget-->
             <div class="card mb-4">
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action active" aria-current="true">
-                        Latest posts
+                        Последние сообщения
                     </a>
                     {% show_latest_posts 3 %}
                 </div>
@@ -89,7 +89,7 @@
             <div class="card mb-4">
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action active" aria-current="true">
-                        Most commented posts
+                        Самые комментируемые сообщения
                     </a>
                     {% get_most_commented_posts as most_commented_posts %}
                     {% for post in most_commented_posts %}
@@ -103,7 +103,7 @@
 </div>
 <!-- Footer-->
 <footer class="py-5 bg-dark mt-2 mt-auto">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2024, Powered by
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Блог 2024, При поддержке 
         Django</p></div>
 </footer>
 </body>
