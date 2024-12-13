@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'accounts.apps.AccountsConfig',
     'social_django',
-    'django_bootstrap5'
+    'django_bootstrap5',
+    'rest_framework',
+    'blog_api.apps.BlogApiConfig',
 ]
 
 MIDDLEWARE = [
