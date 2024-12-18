@@ -1,11 +1,15 @@
 from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
+from django_filters.rest_framework import DjangoFilterBackend 
 
 
-class PostList(generics.ListCreateAPIView):
+class PostList(generics.ListCreateAPIView):     
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # бэкенд фильтры для нашего представления PostList
+    filter_backends = [DjangoFilterBackend] 
+    filterset_fields = ['author']
 
     
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
