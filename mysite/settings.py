@@ -198,9 +198,16 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
 
 
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+REST_FRAMEWORK = {   
+   "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",   # переключится на IsAuthenticated на уровне всего проекта, чтобы только аутентифицированные, или вошедшие в систему, пользователи могли просматривать API
     ],
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']    # использовать бэкэнд django-filter по умолчанию
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],    # использовать бэкэнд django-filter по умолчанию
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',       # класс пагинации, 
+    'PAGE_SIZE': 3,                                                                      # размер страницы
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (                         # подключение базовой авторизации и поддержки сессий
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
 }

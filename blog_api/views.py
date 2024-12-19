@@ -1,7 +1,13 @@
+from rest_framework import permissions
 from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
 from django_filters.rest_framework import DjangoFilterBackend 
+# from rest_framework.views import APIView
+
+# class MyView(APIView):
+#     permission_classes = [permissions.IsAuthenticated]
+#     # ... ваш код ...
 
 
 class PostList(generics.ListCreateAPIView):     
