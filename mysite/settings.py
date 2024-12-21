@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog_api.apps.BlogApiConfig',
     'django_filters',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -207,7 +208,18 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 3,                                                                      # размер страницы
     
     'DEFAULT_AUTHENTICATION_CLASSES': (                         # подключение базовой авторизации и поддержки сессий
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',    #  откл. из-законфликта
         'rest_framework.authentication.SessionAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',    
 }
+
+# добавление некоторых метаданных, таких как название, описание и версия схемы API
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Blog API Project",
+    "DESCRIPTION": "A sample blog to learn about DRF",
+    "VERSION": "1.0.0",
+    # OTHER SETTINGS
+}
+
+

@@ -25,4 +25,6 @@ urlpatterns = [
     # path("api/v1/", include("blog_api_v1.urls")), # API версия 1
     # path("api/v2/", include("blog_api_v2.urls")), # API версия 2
 
+    path("api-auth/", include("rest_framework.urls")),  # возможность авторизации прямо из API сервиса
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
